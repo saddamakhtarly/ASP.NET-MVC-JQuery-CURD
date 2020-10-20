@@ -1,0 +1,44 @@
+﻿@model WebApplication3.Models.Reading
+
+<div>
+    <h4>Reading</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Scoure)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Scoure)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reading1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reading1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reading2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reading2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,343 @@
+﻿@model IEnumerable<WebApplication3.Models.Reading>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <button id="btnShowModal" type="button" class="btn btn-sm btn-default">Create New</button>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Scoure)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reading1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reading2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th> Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Scoure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reading1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reading2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+
+                <button class="EditId btn btn-sm btn-default" id="@item.Id" type="button"> Edit </button>
+
+                <button class="DetailsId btn btn-sm btn-default" id="@item.Id" type="button"> Details </button>
+
+                <button class="DeleteId btn btn-sm btn-default" id="@item.Id" type="button"> Delete </button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="modal fade" tabindex="-1" id="loginModal"
+     data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    ×
+                </button>
+                <h4 class="modal-title">Add New Record</h4>
+            </div>
+            <form action="~/Read/Create" method="post">
+                <div class="modal-body ">
+
+                    <div class="form-group">
+                        <input class="form-control" type="text"
+                               placeholder="Enter Source" name="Source" id="Source" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" name="Reading1" placeholder="Reading1"
+                               type="text" id="Reading1" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" name="Reading2" placeholder="Reading2"
+                               type="text" id="Reading2" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" name="CreateDate" placeholder="CreateDate"
+                               type="date" id="CreateDate" />
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Save" id="submit" />
+                    <button type="button" id="btnHideModal" class="btn btn-primary">
+                        Close
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="EditModal" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    ×
+                </button>
+                <h4 class="modal-title">Edit Record</h4>
+            </div>
+
+            <div class="modal-body " id="editPage">
+                <form id="friendform">
+                    <input type="hidden" name="Id" id="edt_id" class="edt_id" />
+                    <div class="form-group">
+                        <input class="form-control edt_Source" type="text"
+                               placeholder="Enter Source" name="Scoure" id="edt_Source" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control edt_Recording1" name="Reading1" placeholder="Reading1"
+                               type="text" id="edt_Reading1" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control edt_Recording2" name="Reading2" placeholder="Reading2"
+                               type="text" id="edt_Reading2" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control edt_CreateDate" name="CreateDate" placeholder="CreateDate"
+                               type="date" id="edt_CreateDate" />
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-primary" value="Save" id="btnEdit" />
+                <button type="button" id="btnHideEditModal" class="btn btn-primary">
+                    Close
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="DetailsModal"
+     data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    ×
+                </button>
+                <h4 class="modal-title">Record Details</h4>
+            </div>
+            <form action="~/Read/Edit" method="post">
+                <div class="modal-body " id="detailId">
+
+                    <div class="form-group">
+                        <input class="form-control" type="text"
+                               placeholder="Enter Source" name="Source" id="det_Source" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" name="Reading1" placeholder="Reading1"
+                               type="text" id="det_Reading1" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" name="Reading2" placeholder="Reading2"
+                               type="text" id="det_Reading2" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" name="CreateDate" placeholder="CreateDate"
+                               type="date" id="det_CreateDate" />
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnHideDetailsModal" class="btn btn-primary">
+                        Close
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="deleteModal"
+     data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    ×
+                </button>
+                <h4 class="modal-title">Delete Record</h4>
+            </div>
+            <form>
+                <input type="hidden" name="deleteRec" id="deleteRed" class="deleteRed" />
+            </form>
+            <div class="modal-body " id="detailId">
+                <h3>Are You Sure you want to delete </h3>
+
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-primary delete" value="Yes" id="btnDelete" />
+                <button type="button" id="btnHideDeleteModal" class="btn btn-primary delete">
+                    No
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //Create
+        $("#btnShowModal").click(function () {
+            $("#loginModal").modal('show');
+        });
+        $("#btnHideModal").click(function () {
+            $("#loginModal").modal('hide');
+        });
+        //Edit
+        // for show value from list to view
+        $(".EditId").on('click', function () {
+            var id = $(this).attr('id');
+            $.ajax({
+                type: "GET",
+                url: "/Read/Edit",
+                data: { id: id },
+                success: function (result) {
+                    var obj = JSON.parse(result);
+                    var id1 = id;
+                    var source = obj.Scoure;
+                    var Reading1 = obj.Reading1;
+                    var Reading2 = obj.Reading2;
+                    var CreateDate = obj.CreateDate;
+                    var CreateDate = new Date(CreateDate);
+                    var month = CreateDate.getMonth() + 1;
+                    month = month < 10 ? "0" + month : month;
+                    var date = CreateDate.getDate();
+                    date = date < 10 ? "0" + date : date;
+                    var year = CreateDate.getFullYear();
+                    CreateDate = year + "-" + month + "-" + date;
+                    console.log(CreateDate);
+                    $('#edt_id').val(id1);
+                    $('#edt_Source').val(source);
+                    $('#edt_Reading1').val(Reading1);
+                    $('#edt_Reading2').val(Reading2);
+                    $('#edt_CreateDate').val(CreateDate);
+                    $("#EditModal").modal('show');
+                }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                }
+            })
+            $("#editPage :input").each(function () {
+                console.log($(this).attr('id'));
+            });
+        });
+        $("#btnEdit").click(function (e) {
+            //Serialize the form datas.
+            var valdata = $("#friendform").serialize();
+            $.ajax({
+                url: "/Read/Edit",
+                type: "POST",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: valdata,
+                success: function (result) {
+                    if (result) {
+                        $("#editModal").modal('hide');
+                        window.location.href = "/Read/Index";
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                }
+            });
+        });
+        $("#btnHideEditModal").click(function () {
+            $("#EditModal").modal('hide');
+        });
+        //Details
+        $(".DetailsId").on('click', function () {
+            $("#DetailsModal").modal('show');
+            var id = $(this).attr('id');
+            $.ajax({
+                type: "GET",
+                url: "/Read/Detail",
+                data: { id: id },
+                success: function (result) {
+                    var obj = JSON.parse(result);
+                    var source = obj.Scoure;
+                    var Reading1 = obj.Reading1;
+                    var Reading2 = obj.Reading2;
+                    var CreateDate = obj.CreateDate;
+                    var CreateDate = new Date(CreateDate);
+                    var month = CreateDate.getMonth() + 1;
+                    month = month < 10 ? "0" + month : month;
+                    var date = CreateDate.getDate();
+                    date = date < 10 ? "0" + date : date;
+                    var year = CreateDate.getFullYear();
+                    CreateDate = year + "-" + month + "-" + date;
+                    $('#det_Source').val(source);
+                    $('#det_Reading1').val(Reading1);
+                    $('#det_Reading2').val(Reading2);
+                    $('#det_CreateDate').val(CreateDate);
+                    $("#DetailsModal").modal('show');
+                }
+            })
+        });
+        $("#btnHideDetailsModal").click(function () {
+            $("#DetailsModal").modal('hide');
+        });
+        //Delete
+        $(".DeleteId").on('click', function () {
+            //id value assign
+            $('#deleteRed').val($(this).attr('id'));
+            $("#deleteModal").modal('show');
+        });
+        $("#btnDelete").on('click', function () {
+            var _id = $('.deleteRed').val();
+            $.ajax({
+                type: "POST",
+                url: "/Read/Delete",
+                data: { id: _id },
+                success: function (result) {
+                    if (result) {
+                        $("#deleteModal").modal('hide');
+                        window.location.href = "/Read/Index";
+                    }
+                }
+            });
+        });
+        $("#btnHideDeleteModal").click(function () {
+            $("#deleteModal").modal('hide');
+        });
+    });
+
+</script>
